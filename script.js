@@ -1,5 +1,5 @@
 /**
- * MONEY EFT PRACTITIONER — 3-DAY LIVE WORKSHOP
+ * MONEY EFT PRACTITIONER — 2-DAY LIVE WORKSHOP (26–27 Sep, 12–3 PM)
  * Interactive Scripts: 15-Min Urgency Timer, FAQ Accordion, Proof Carousel, Lightbox & Sticky Bar
  */
 

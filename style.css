@@ -701,8 +701,8 @@ section {
 
 .schedule-days-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
   margin-bottom: 36px;
 }
 
@@ -1281,6 +1281,7 @@ section {
   position: relative;
 }
 
+.curriculum-card--day2,
 .curriculum-card--day3 {
   border: 2px solid var(--emerald-600);
   box-shadow: var(--shadow-md);
