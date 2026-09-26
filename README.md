@@ -1,6 +1,6 @@
 # Money EFT Practitioner — 2-Day LIVE Workshop
 
-Landing page for the **Money EFT Practitioner Certification — 2-Day LIVE Workshop** (26–27 Sep, 12–3 PM IST) by Sonal Wadhwa.
+Landing page for the **Money EFT Practitioner Certification — 2-Day LIVE Workshop** (17–18th October, 12–3 PM IST) by Sonal Wadhwa.
 
 ## Features
 - **High-Converting Responsive Layout**: Designed with a luxury emerald-gold palette, glassmorphic elevations, and mobile-first ergonomics.
