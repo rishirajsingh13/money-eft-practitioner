@@ -1,0 +1,9 @@
+{
+  "name": "money-eft-practitioner",
+  "version": "1.0.0",
+  "description": "Money EFT Practitioner — 2-Day LIVE Workshop Landing Page",
+  "scripts": {
+    "build": "node build.js",
+    "start": "node build.js"
+  }
+}

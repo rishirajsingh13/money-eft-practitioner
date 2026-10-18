@@ -17,3 +17,29 @@ You can deploy this repository directly on Vercel:
 2. Import repository in [Vercel](https://vercel.com).
 3. Framework Preset: **Other** / Static HTML.
 4. Deploy!
+
+## Updating Date, Time & Price from Vercel
+
+You can change the workshop date, time, and pricing directly from your Vercel Dashboard without touching any code:
+
+1. Go to your project on **[Vercel Dashboard](https://vercel.com)**.
+2. Navigate to **Settings** → **Environment Variables**.
+3. Add or edit the following variables:
+   - `EVENT_DATE`: e.g. `24–25th October` or `7–8th November`
+   - `EVENT_TIME`: e.g. `12–3 PM` or `12:00 PM – 3:00 PM IST`
+   - `EVENT_PRICE`: e.g. `199` or `299`
+   - `EVENT_ORIGINAL_PRICE`: e.g. `999` or `1499`
+   - *(Optional)* `EVENT_PAYMENT_URL`: e.g. `https://live.sonalwadhwa.com/payment-secure-page`
+4. Click **Save** and trigger a **Redeploy** (or push a commit) to apply changes.
+
+### Local Development
+To test locally:
+1. Copy or edit `.env`:
+   ```bash
+   cp .env.example .env
+   ```
+2. Run the build script to update static config:
+   ```bash
+   npm run build
+   ```
+

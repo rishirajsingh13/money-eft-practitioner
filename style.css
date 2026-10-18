@@ -1838,11 +1838,12 @@ section {
 
 .stories-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 24px;
 }
 
 .story-screenshot {
+  position: relative;
   background: #ffffff;
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-md);
@@ -1863,6 +1864,25 @@ section {
   height: auto;
   display: block;
   object-fit: contain;
+}
+
+.story-screenshot__overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(0deg, rgba(15, 23, 42, 0.85) 0%, transparent 100%);
+  color: #ffffff;
+  padding: 12px;
+  text-align: center;
+  font-size: 0.78rem;
+  font-weight: 700;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.story-screenshot:hover .story-screenshot__overlay {
+  opacity: 1;
 }
 
 /* ---------------- FAQ SECTION ---------------- */
@@ -2152,6 +2172,10 @@ section {
 
   .proof-grid {
     grid-template-columns: 1fr;
+  }
+
+  .stories-grid {
+    grid-template-columns: repeat(2, 1fr);
   }
 
   .bonuses-grid {
