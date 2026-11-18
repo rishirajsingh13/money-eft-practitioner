@@ -13,27 +13,35 @@
   <meta property="og:type" content="website" />
   <meta property="og:image" content="images/Hero_Section.png" />
 
-  <!-- Google Fonts: Montserrat -->
+  <!-- Google Fonts: Montserrat (trimmed to 5 used weights) -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
-    href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,600;1,700&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800;900&display=swap"
     rel="stylesheet" />
+
+  <!-- Preload LCP hero image -->
+  <link rel="preload" as="image" type="image/webp"
+    imagesrcset="images/Hero-Section-400w.webp 400w, images/Hero-Section-800w.webp 800w, images/Hero-Section.webp 1200w"
+    imagesizes="(max-width: 991px) 100vw, 40vw"
+    fetchpriority="high" />
 
   <link rel="stylesheet" href="style.css" />
 
-  <!-- Meta Pixel Code -->
+  <!-- Meta Pixel Code (deferred to not block render) -->
   <script>
-    !function(f,b,e,v,n,t,s)
-    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-    n.queue=[];t=b.createElement(e);t.async=!0;
-    t.src=v;s=b.getElementsByTagName(e)[0];
-    s.parentNode.insertBefore(t,s)}(window, document,'script',
-    'https://connect.facebook.net/en_US/fbevents.js');
-    fbq('init', '1303827810262698');
-    fbq('track', 'PageView');
+    window.addEventListener('load', function() {
+      !function(f,b,e,v,n,t,s)
+      {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+      n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+      if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+      n.queue=[];t=b.createElement(e);t.async=!0;
+      t.src=v;s=b.getElementsByTagName(e)[0];
+      s.parentNode.insertBefore(t,s)}(window, document,'script',
+      'https://connect.facebook.net/en_US/fbevents.js');
+      fbq('init', '1303827810262698');
+      fbq('track', 'PageView');
+    });
   </script>
   <noscript>
     <img height="1" width="1" style="display:none"
@@ -44,1065 +52,608 @@
 
 <body>
 
-  <!-- Top Announcement Urgency Bar -->
-  <aside class="top-banner" id="top-banner" aria-label="Limited Time Offer">
-    <div class="top-banner__inner">
-      <span class="pulse-dot"></span>
-      <span class="banner-text">
-        ⚡ <strong>SPECIAL LAUNCH OFFER:</strong> 2-Day LIVE Workshop Ticket (<span data-webinar="webinar_date">17–18th October</span>, <span data-webinar="webinar_time">12–3 PM</span>) + Free Gifts Worth
-        ₹52,796 for just
-        <strong><span data-webinar="price_formatted">₹199</span></strong>
-      </span>
-      <div class="banner-timer">
-        Offer ends in <span class="timer-display banner-timer-digits" id="banner-timer">15:00</span>
-      </div>
-      <a href="https://live.sonalwadhwa.com/payment-secure-page" target="_blank" rel="noopener" class="banner-btn" id="banner-cta" data-webinar-link>Claim Your Spot →</a>
-    </div>
-  </aside>
-
   <!-- Navigation / Brand Strip -->
   <header class="navbar" id="navbar">
     <div class="container navbar__container">
       <div class="navbar__brand">
-        <span class="brand-badge">LIVE CERTIFICATION</span>
+        <span class="brand-badge">Live workshop</span>
         <span class="brand-title">Money EFT Practitioner</span>
       </div>
-      <div class="navbar__action">
-        <a href="https://live.sonalwadhwa.com/payment-secure-page" target="_blank" rel="noopener" class="btn btn--header" id="nav-register-btn" data-webinar-link>Register for <span data-webinar="price_formatted">₹199</span></a>
-      </div>
+      <a data-webinar-link href="https://live.sonalwadhwa.com/payment-secure-page" target="_blank" rel="noopener" class="btn btn--primary btn--header" id="nav-register-btn"><span>I Want to Become a Practitioner<span class="btn__price"> · <span data-webinar="price_formatted">₹199</span></span></span></a>
     </div>
   </header>
 
   <main>
-    <!-- HERO SECTION (ActionMasterclass Structure) -->
-    <section class="hero-ref" id="hero">
-      <div class="container hero-ref__container">
+    <!-- HERO -->
+    <section class="hero" id="hero">
+      <div class="container hero__grid">
 
-        <!-- Left Column: Content, Proof, CTA -->
-        <div class="hero-ref__left">
-
-          <!-- Eyebrow Pill -->
-          <div class="hero-ref__pill-wrapper">
-            <span class="pill-badge">
-              <span class="pill-dot"></span>
-              2-Day LIVE Workshop · <span data-webinar="webinar_date">17–18th October</span> (<span data-webinar="webinar_time">12–3 PM</span>) · Only <span data-webinar="price_formatted">₹199</span>
-            </span>
+        <div class="hero__copy">
+          <div class="pill-badge">
+            <span class="pill-dot" aria-hidden="true"></span>
+            <span class="pill-text">LIVE on Zoom · <span data-webinar="webinar_date">17–18th October</span> · <span data-webinar="webinar_time">12–3 PM</span></span>
           </div>
 
-          <!-- Eyebrow Tag -->
-          <p class="hero-ref__audience-tag">✦ FOR PEOPLE WHO WANT TO HELP OTHERS</p>
-
-          <!-- Main H1 Headline -->
-          <h1 class="hero-ref__title">
-            Money EFT Practitioner Certification
-            <span class="hero-ref__title--highlight">2-Day LIVE Workshop</span>
+          <h1 class="hero__title">
+            Master Money EFT Tapping
+            <span class="hero__title-highlight">2-Day LIVE Hands-On Workshop</span>
           </h1>
 
-          <!-- Subhead -->
-          <p class="hero-ref__subhead">
-            Learn the skill. Practise it live. Walk out able to run real Money EFT sessions — and understand how to turn
-            it into a coaching career.
-          </p>
+          <p class="hero__subhead">Learn tapping to clear money blocks and run your own 1-on-1 sessions.</p>
 
-          <!-- MOBILE ONLY: Image placed right under subhead for mobile (natural ActionMasterclass flow) -->
-          <div class="hero-ref__media-mobile">
-            <div class="hero-ref__image-card">
+          <!-- Mobile hero image (desktop image lives in .hero__media) -->
+          <figure class="hero__media-mobile">
+            <picture>
+              <source media="(max-width: 991px)" srcset="images/Hero-Section-400w.webp 400w, images/Hero-Section-800w.webp 800w"
+                sizes="100vw" type="image/webp">
               <img src="images/Hero_Section.png" alt="Sonal Wadhwa - Money EFT Practitioner Workshop"
-                class="hero-ref__img" fetchpriority="high" />
-            </div>
-            <div class="hero-ref__author-info">
-              <h3 class="author-name">Sonal Wadhwa</h3>
-              <p class="author-subtitle">EFT Tapping & Money Mindset Coach | Author | Ex-Consultant (EY, PwC)</p>
-            </div>
-          </div>
+                class="hero__img" width="2000" height="1414" fetchpriority="high" />
+            </picture>
+            <figcaption class="hero__author">With <strong>Sonal Wadhwa</strong>, EFT &amp; Money Mindset Coach, Author, ex-EY &amp; PwC consultant</figcaption>
+          </figure>
 
-          <!-- Hero Body Paragraph -->
-          <div class="hero-ref__body-text">
-            <p>
-              By the end of 2 days, you'll have an in-depth, practical understanding of <strong>Money EFT</strong> — how
-              to work with people, help them get real results, and guide them out of financial stress and emotional
-              blocks around money. You'll be ready to start giving tapping sessions to people around you
-              <strong>immediately after Day 2</strong> — and you'll learn how this becomes a career, not just a skill.
+          <div class="hero__cta">
+            <a data-webinar-link href="https://live.sonalwadhwa.com/payment-secure-page" target="_blank" rel="noopener" class="btn btn--primary btn--large" id="hero-cta-btn"><span>I Want to Become a Practitioner<span class="btn__price"> · <span data-webinar="price_formatted">₹199</span></span></span></a>
+            <p class="cta-note">
+              <span class="cta-note__price"><s data-webinar="original_price_formatted">₹999</s> <strong data-webinar="price_formatted">₹199</strong> for both days, plus ₹52,796 in bonuses</span>
+              <span class="cta-note__meta">Secure checkout · Instant WhatsApp access</span>
             </p>
           </div>
 
-          <!-- Trust / Social Proof Box -->
-          <div class="hero-ref__trust-strip">
-            <div class="trust-stars">⭐⭐⭐⭐⭐</div>
-            <p class="trust-text">
-              Over <strong>1,200+ coaches, healers & learners</strong> trained. <strong>98% 5-star feedback</strong>.
-              Start giving real tapping sessions immediately after Day 2.
-            </p>
-          </div>
-
-          <!-- Hero Countdown Tag -->
-          <div class="hero-ref__countdown">
+          <div class="hero__countdown">
             <span class="countdown-tag" id="hero-timer-label">🚨 Special Offer Closes In:</span>
-            <div class="countdown-units">
+            <span class="countdown-units">
               <span class="c-unit"><strong id="hero-minutes">15</strong>m</span>
               <span class="c-sep">:</span>
               <span class="c-unit"><strong id="hero-seconds">00</strong>s</span>
-            </div>
+            </span>
           </div>
 
-          <!-- High-Converting CTA Button -->
-          <div class="hero-ref__cta-wrap">
-            <a href="https://live.sonalwadhwa.com/payment-secure-page" target="_blank" rel="noopener" class="btn btn--hero-cta btn--pulse" id="hero-cta-btn" data-webinar-link>
-              <span>Yes! Make Me A Practitioner <span class="strike"><span data-webinar="original_price_formatted">₹999</span></span> <span class="gold-price">@<span data-webinar="price_formatted">₹199</span></span>
-                →</span>
-            </a>
-            <p class="hero-ref__guarantee">
-              🔒 100% Secure Checkout • Instant WhatsApp Community Access • Free Gifts Included
-            </p>
-          </div>
+          <ul class="hero__points">
+            <li>Calm money panic and scarcity stress with meridian tapping</li>
+            <li>Write your own scripts for pricing guilt and fear of asking</li>
+            <li>Run confident 1-on-1 sessions for clients, friends and family</li>
+          </ul>
 
+          <p class="hero__trust"><span class="trust-stars" aria-hidden="true">★★★★★</span> <strong>4.9/5</strong> from 1,200+ trained practitioners. No psychology degree needed.</p>
         </div>
 
-        <!-- Right Column: Visual on Desktop (Zero Cropping) -->
-        <div class="hero-ref__right">
-          <div class="hero-ref__image-wrapper">
-            <div class="hero-ref__image-card">
-              <img src="images/Hero_Section.png" alt="Sonal Wadhwa - Money EFT Practitioner Workshop"
-                class="hero-ref__img" fetchpriority="high" />
-            </div>
-            <div class="hero-ref__author-info">
-              <h3 class="author-name">Sonal Wadhwa</h3>
-              <p class="author-subtitle">EFT Tapping and Money Mindset Coach | Author of <em>One Hundred Percent</em>
-              </p>
-              <span class="author-badge">Fortune 500 Consultant (EY, KPMG, PwC, Atos)</span>
-            </div>
-          </div>
-        </div>
+        <!-- Desktop hero image -->
+        <figure class="hero__media">
+          <picture>
+            <source srcset="images/Hero-Section-800w.webp 800w, images/Hero-Section.webp 1200w"
+              sizes="(min-width: 992px) 45vw, 1px" type="image/webp">
+            <img src="images/Hero_Section.png" alt="Sonal Wadhwa - Money EFT Practitioner Workshop"
+              class="hero__img" width="2000" height="1414" loading="lazy" />
+          </picture>
+          <figcaption class="hero__author">
+            <strong>Sonal Wadhwa</strong>
+            EFT Tapping and Money Mindset Coach. Author of <em>One Hundred Percent</em>. Fortune 500 consultant (EY, KPMG, PwC, Atos).
+          </figcaption>
+        </figure>
 
       </div>
     </section>
 
-    <!-- START SEEING TRANSFORMATION FROM DAY 1 (ActionMasterclass schedule section) -->
-    <section class="section-schedule" id="schedule">
+    <!-- PROOF: real messages, swipeable -->
+    <section class="section section--subtle proof" id="stories">
       <div class="container">
-        <div class="schedule-box">
-          <div class="schedule-box__header text-center">
-            <span class="badge badge--emerald">EXPERIENTIAL LIVE IMMERSION</span>
-            <h2 class="schedule-title">Start Seeing Transformation from Day 1</h2>
-            <p class="schedule-subtitle">No fluff, no endless theory. Two focused days of live interactive practice (3
-              hours each day).
-            </p>
-          </div>
-
-          <div class="schedule-days-grid">
-            <div class="schedule-day-card">
-              <div class="day-dot"></div>
-              <div class="day-meta">
-                <span class="day-label">Day 1</span>
-                <strong class="day-topic"><span data-webinar="day1_date">17 October (Sat)</span></strong>
-                <span class="day-time">Time: <span data-webinar="webinar_time">12–3 PM</span> (3 Hours)</span>
-              </div>
-              <div class="day-desc">Foundations, Somatic Acupressure Points & The Complete EFT Tapping Process</div>
-            </div>
-
-            <div class="schedule-day-card schedule-day-card--highlight">
-              <div class="day-dot day-dot--gold"></div>
-              <div class="day-meta">
-                <span class="day-label day-label--gold">Day 2</span>
-                <strong class="day-topic"><span data-webinar="day2_date">18 October (Sun)</span></strong>
-                <span class="day-time">Time: <span data-webinar="webinar_time">12–3 PM</span> (3 Hours)</span>
-              </div>
-              <div class="day-desc">Scripting Mastery, Delivering 1-on-1 Breakthrough Sessions & Career Launch</div>
-            </div>
-          </div>
-
-          <div class="schedule-actions">
-            <a href="#curriculum" class="btn btn--secondary">
-              <span>Tap for Course Details</span>
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                <path d="M7 13l5 5 5-5M7 6l5 5 5-5" />
-              </svg>
-            </a>
-            <a href="https://live.sonalwadhwa.com/payment-secure-page" target="_blank" rel="noopener" class="btn btn--primary" data-webinar-link>
-              Register Now <span class="strike"><span data-webinar="original_price_formatted">₹999</span></span> @<span data-webinar="price_formatted">₹199</span>
-            </a>
-          </div>
+        <div class="section-head">
+          <h2 class="section-title">Real messages from Sonal's students</h2>
+          <p class="section-sub">Unedited WhatsApp messages and reviews. Tap any one to read it full size.</p>
         </div>
+      </div>
+      <div class="proof-rail" tabindex="0" aria-label="Student messages, scroll sideways">
+        <button type="button" class="proof-item" data-full="images/t1.webp">
+          <picture>
+            <source srcset="images/t1-400w.webp 400w, images/t1.webp 1080w" sizes="(max-width: 767px) 80vw, 340px" type="image/webp">
+            <img src="images/t1.webp" alt="Student message 1" loading="lazy" width="1080" height="717" />
+          </picture>
+        </button>
+        <button type="button" class="proof-item" data-full="images/WhatsApp-Image-2026-09-28-at-14-57-12.webp">
+          <picture>
+            <source srcset="images/WhatsApp-Image-2026-09-28-at-14-57-12-400w.webp 400w, images/WhatsApp-Image-2026-09-28-at-14-57-12.webp 874w" sizes="(max-width: 767px) 80vw, 340px" type="image/webp">
+            <img src="images/WhatsApp Image 2026-09-28 at 14.57.12.jpeg" alt="WhatsApp message from a student 1" loading="lazy" width="874" height="1600" />
+          </picture>
+        </button>
+        <button type="button" class="proof-item" data-full="images/t2.webp">
+          <picture>
+            <source srcset="images/t2-400w.webp 400w, images/t2.webp 1080w" sizes="(max-width: 767px) 80vw, 340px" type="image/webp">
+            <img src="images/t2.webp" alt="Student message 2" loading="lazy" width="1080" height="372" />
+          </picture>
+        </button>
+        <button type="button" class="proof-item" data-full="images/WhatsApp-Image-2026-09-28-at-14-57-12-1.webp">
+          <picture>
+            <source srcset="images/WhatsApp-Image-2026-09-28-at-14-57-12-1-400w.webp 400w, images/WhatsApp-Image-2026-09-28-at-14-57-12-1.webp 1081w" sizes="(max-width: 767px) 80vw, 340px" type="image/webp">
+            <img src="images/WhatsApp Image 2026-09-28 at 14.57.12 (1).jpeg" alt="WhatsApp message from a student 2" loading="lazy" width="1081" height="1600" />
+          </picture>
+        </button>
+        <button type="button" class="proof-item" data-full="images/t3.webp">
+          <picture>
+            <source srcset="images/t3-400w.webp 400w, images/t3.webp 1080w" sizes="(max-width: 767px) 80vw, 340px" type="image/webp">
+            <img src="images/t3.webp" alt="Student message 3" loading="lazy" width="1080" height="918" />
+          </picture>
+        </button>
+        <button type="button" class="proof-item" data-full="images/WhatsApp-Image-2026-09-28-at-14-57-14.webp">
+          <picture>
+            <source srcset="images/WhatsApp-Image-2026-09-28-at-14-57-14-400w.webp 400w, images/WhatsApp-Image-2026-09-28-at-14-57-14.webp 1170w" sizes="(max-width: 767px) 80vw, 340px" type="image/webp">
+            <img src="images/WhatsApp Image 2026-09-28 at 14.57.14.jpeg" alt="WhatsApp message from a student 3" loading="lazy" width="1170" height="1497" />
+          </picture>
+        </button>
+        <button type="button" class="proof-item" data-full="images/t4.webp">
+          <picture>
+            <source srcset="images/t4-400w.webp 400w, images/t4.webp 2837w" sizes="(max-width: 767px) 80vw, 340px" type="image/webp">
+            <img src="images/t4.webp" alt="Student message 4" loading="lazy" width="2837" height="1541" />
+          </picture>
+        </button>
+        <button type="button" class="proof-item" data-full="images/WhatsApp-Image-2026-09-28-at-14-57-10.webp">
+          <picture>
+            <source srcset="images/WhatsApp-Image-2026-09-28-at-14-57-10-400w.webp 400w, images/WhatsApp-Image-2026-09-28-at-14-57-10.webp 1170w" sizes="(max-width: 767px) 80vw, 340px" type="image/webp">
+            <img src="images/WhatsApp Image 2026-09-28 at 14.57.10.jpeg" alt="WhatsApp message from a student 4" loading="lazy" width="1170" height="916" />
+          </picture>
+        </button>
+        <button type="button" class="proof-item" data-full="images/WhatsApp-Image-2026-09-28-at-14-57-10-1.webp">
+          <picture>
+            <source srcset="images/WhatsApp-Image-2026-09-28-at-14-57-10-1-400w.webp 400w, images/WhatsApp-Image-2026-09-28-at-14-57-10-1.webp 1170w" sizes="(max-width: 767px) 80vw, 340px" type="image/webp">
+            <img src="images/WhatsApp Image 2026-09-28 at 14.57.10 (1).jpeg" alt="WhatsApp message from a student 5" loading="lazy" width="1170" height="499" />
+          </picture>
+        </button>
+        <button type="button" class="proof-item" data-full="images/Testimonial.webp">
+          <picture>
+            <source srcset="images/Testimonial-400w.webp 400w, images/Testimonial-800w.webp 800w, images/Testimonial.webp 1200w" sizes="(max-width: 767px) 80vw, 340px" type="image/webp">
+            <img src="images/Testimonial.png" alt="Testimonial: doing more in less time" loading="lazy" width="2000" height="1414" />
+          </picture>
+        </button>
+        <button type="button" class="proof-item" data-full="images/Testimonial2.webp">
+          <picture>
+            <source srcset="images/Testimonial2-400w.webp 400w, images/Testimonial2-800w.webp 800w, images/Testimonial2.webp 1200w" sizes="(max-width: 767px) 80vw, 340px" type="image/webp">
+            <img src="images/Testimonial2.png" alt="Testimonial: overthinking and impatience vanished" loading="lazy" width="2000" height="1414" />
+          </picture>
+        </button>
+        <button type="button" class="proof-item" data-full="images/Testimonial3.webp">
+          <picture>
+            <source srcset="images/Testimonial3-400w.webp 400w, images/Testimonial3-800w.webp 800w, images/Testimonial3.webp 1200w" sizes="(max-width: 767px) 80vw, 340px" type="image/webp">
+            <img src="images/Testimonial3.png" alt="Testimonial: dreaming big" loading="lazy" width="2000" height="1414" />
+          </picture>
+        </button>
+      </div>
+      <div class="container proof-controls">
+        <button type="button" class="rail-btn" data-rail-dir="-1" aria-label="Previous messages"><span aria-hidden="true">←</span></button>
+        <button type="button" class="rail-btn" data-rail-dir="1" aria-label="Next messages"><span aria-hidden="true">→</span></button>
       </div>
     </section>
 
-    <!-- PRICE ANCHOR STRIP -->
-    <section class="price-anchor" aria-label="Price Anchor">
-      <div class="container price-anchor__container">
-        <div class="price-anchor__left">
-          <div class="price-anchor__tag">LIMITED SPOTS AT THIS PRICE</div>
-          <h2 class="price-anchor__title">Get All This for Just <span class="price-highlight"><span data-webinar="price_formatted">₹199</span></span></h2>
-          <p class="price-anchor__subtitle">Your 2-day LIVE workshop ticket + FREE gifts worth ₹52,796</p>
+    <!-- PAIN: one consolidated checklist -->
+    <section class="section pain" id="pain-points">
+      <div class="container container--narrow">
+        <div class="section-head">
+          <h2 class="section-title">Does money feel like this, for you or the people around you?</h2>
         </div>
-        <div class="price-anchor__right">
-          <a href="https://live.sonalwadhwa.com/payment-secure-page" target="_blank" rel="noopener" class="btn btn--accent" id="anchor-cta-btn" data-webinar-link>
-            Register Now — <span data-webinar="price_formatted">₹199</span>, limited spots | filling fast
-          </a>
-        </div>
+        <ul class="pain-list">
+          <li><strong>Lakhs in debts, loans and EMIs.</strong> The same monthly pressure, every month.</li>
+          <li><strong>No savings for the future.</strong> Living paycheck to paycheck with no cushion.</li>
+          <li><strong>One income, no backup.</strong> Helpless every time expenses spike.</li>
+          <li><strong>Sleepless nights over money.</strong> Constant tension that spills into everything.</li>
+          <li><strong>Guilt about charging or asking.</strong> Undercharging, working for free, avoiding the raise.</li>
+          <li><strong>Money stuck with others.</strong> Loans and payments that never come back.</li>
+        </ul>
+        <p class="pain-close">In 2 days you learn to release these knots with tapping, first for yourself, then for the people who come to you.</p>
       </div>
     </section>
 
-    <!-- PROOF STRIP ("When my clients did EFT" - Zero Cropping Responsive Grid) -->
-    <section class="proof-strip" id="proof">
+    <!-- BEFORE / AFTER -->
+    <section class="section section--subtle shift" id="transformation-story">
       <div class="container">
-        <div class="section-header text-center">
-          <span class="badge badge--emerald">REAL TRANSFORMATIONS</span>
-          <h2 class="section-title">“When My Clients Did EFT”</h2>
-          <p class="section-subtitle">Real feedback, shifts, and emotional releases from actual Money EFT tapping
-            sessions. Click any image to view in full screen.</p>
+        <div class="section-head">
+          <h2 class="section-title">What changed when Sonal started tapping</h2>
+          <p class="section-sub">Her own money story, before and after EFT.</p>
         </div>
-
-        <!-- Responsive Testimonials Grid (Full images, zero cropping) -->
-        <div class="proof-grid">
-          <div class="proof-card" onclick="openLightbox('images/Testimonial.png')">
-            <img src="images/Testimonial.png" alt="Doing MORE in LESS TIME Testimonial" loading="lazy" />
-            <div class="proof-card__overlay"><span>Tap to expand</span></div>
-          </div>
-          <div class="proof-card" onclick="openLightbox('images/Testimonial2.png')">
-            <img src="images/Testimonial2.png" alt="Overthinking and Impatience VANISHED Testimonial" loading="lazy" />
-            <div class="proof-card__overlay"><span>Tap to expand</span></div>
-          </div>
-          <div class="proof-card" onclick="openLightbox('images/Testimonial3.png')">
-            <img src="images/Testimonial3.png" alt="Sonal installed DREAMING BIG Testimonial" loading="lazy" />
-            <div class="proof-card__overlay"><span>Tap to expand</span></div>
-          </div>
-        </div>
-      </div>
-    </section>
-    <!-- BEFORE / AFTER (SONAL'S STORY & TRANSFORMATIONS) -->
-    <section class="section-transformation-story" id="transformation-story">
-      <div class="container">
-        <div class="section-header text-center">
-          <span class="badge badge--gold">THE SHIFT IN REAL TIME</span>
-          <h2 class="section-title">“Before EFT in My Life” ➔ “EFT Gave Me Miracles”</h2>
-          <p class="section-subtitle">How clearing subconscious energy blocks creates real, tangible breakthroughs in
-            health, peace, and wealth.</p>
-        </div>
-
-        <div class="story-grid">
-          <div class="story-col story-col--before">
-            <div class="story-header">
-              <span class="story-badge story-badge--before">BEFORE EFT</span>
-              <h3>Living in Scarcity & Stress</h3>
-            </div>
-            <ul class="story-list">
-              <li>Constantly feeling financially overwhelmed despite working 12+ hour days.</li>
-              <li>Inner guilt around charging, feeling inadequate or unworthy of abundance.</li>
-              <li>Carrying family conditioning: "Money is the root of all evil" and "Wealthy people are corrupt".</li>
-              <li>Paralyzing fear whenever sudden medical or household expenses arrived.</li>
-              <li>Feeling disconnected, anxious, and stuck in a repetitive loop.</li>
+        <div class="shift-grid">
+          <div class="shift-col shift-col--before">
+            <h3>Before: scarcity and stress</h3>
+            <ul>
+              <li>Financially overwhelmed despite 12+ hour work days</li>
+              <li>Guilt around charging, feeling unworthy of abundance</li>
+              <li>Family conditioning that money is the root of all evil</li>
+              <li>Panic whenever a sudden medical or household bill arrived</li>
             </ul>
           </div>
-
-          <div class="story-col story-col--after">
-            <div class="story-header">
-              <span class="story-badge story-badge--after">AFTER EFT MIRACLES</span>
-              <h3>Calm, Abundance & Power</h3>
-            </div>
-            <ul class="story-list">
-              <li>Inner peace: Money no longer dictates blood pressure or emotional balance.</li>
-              <li>Clear energetic boundaries: Unstuck payments start releasing naturally.</li>
-              <li>Confidence to articulate value, charge premium fees, and receive effortlessly.</li>
-              <li>Balanced family harmony, authoring books, and coaching hundreds of women.</li>
-              <li>Creating a high-impact, location-independent practitioner career.</li>
+          <div class="shift-col shift-col--after">
+            <h3>After: calm, abundance and confidence</h3>
+            <ul>
+              <li>Money no longer dictates her mood or blood pressure</li>
+              <li>Clear boundaries, and stuck payments started coming in</li>
+              <li>Confidence to state her value and charge premium fees</li>
+              <li>A location-independent practice coaching hundreds of women</li>
             </ul>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- WHY THIS WORKSHOP IS DIFFERENT (POSITIONED EARLY) -->
-    <section class="section-different" id="why-different">
-      <div class="container">
-        <div class="section-header text-center">
-          <span class="badge badge--ruby">A BREAKTHROUGH DUAL-TRAINING</span>
-          <h2 class="section-title">This Isn't "Just Another EFT Class"</h2>
-          <p class="section-subtitle">Why traditional courses leave you with certificates in a drawer — and how this
-            breaks that pattern.</p>
+    <!-- WHY DIFFERENT -->
+    <section class="section different" id="why-different">
+      <div class="container container--narrow">
+        <div class="section-head">
+          <h2 class="section-title">This isn't just another EFT class</h2>
+          <p class="section-sub">Most EFT courses only teach the technique. Most coaching programs only teach marketing. This workshop gives you three things together.</p>
         </div>
-
-        <div class="comparison-intro">
-          <div class="comp-box comp-box--old">
-            <span class="comp-icon">❌</span>
-            <p>Most EFT trainings answer just one question: <em>"How do I learn EFT?"</em></p>
+        <div class="pillars">
+          <div class="pillar">
+            <h3>The EFT skill</h3>
+            <p>Real tapping technique and script writing, practised live until it becomes muscle memory.</p>
           </div>
-          <div class="comp-box comp-box--old">
-            <span class="comp-icon">❌</span>
-            <p>Most coaching-business programs answer a different question: <em>"How do I market myself?"</em></p>
+          <div class="pillar pillar--featured">
+            <h3>The money niche</h3>
+            <p>One of the most urgent problems people need help with, and one where they feel change within days.</p>
           </div>
-        </div>
-
-        <div class="solution-banner">
-          <h3>This workshop is built on three things at once:</h3>
-        </div>
-
-        <div class="pillars-grid">
-          <div class="pillar-card">
-            <div class="pillar-num">01</div>
-            <h3 class="pillar-title">EFT Skill</h3>
-            <p class="pillar-desc">
-              Real tapping technique, meridian calibration, and script architecture — <strong>not theoretical
-                philosophy</strong>. You practice it directly live until your muscle memory takes over.
-            </p>
-          </div>
-
-          <div class="pillar-card pillar-card--featured">
-            <div class="pillar-badge">HIGH DEMAND</div>
-            <div class="pillar-num">02</div>
-            <h3 class="pillar-title">Money Niche</h3>
-            <p class="pillar-desc">
-              One of the most emotionally charged, high-urgency areas people desperately need help with. When you heal
-              money pain, people see tangible changes in days.
-            </p>
-          </div>
-
-          <div class="pillar-card">
-            <div class="pillar-num">03</div>
-            <h3 class="pillar-title">Practitioner Path</h3>
-            <p class="pillar-desc">
-              By Day 2, you'll see exactly how this becomes a real coaching career or second income stream, not a
-              certificate that sits quietly in a folder.
-            </p>
-          </div>
-        </div>
-
-        <div class="callout-box">
-          <p>
-            💡 <strong>If you've collected certifications before and never actually used them</strong> — this is built
-            to break that pattern. You leave with something you can <em>do</em>, not just something you <em>know</em>.
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <!-- PAIN POINT SECTION -->
-    <section class="section-pain" id="pain-points">
-      <div class="container">
-        <div class="section-header text-center">
-          <span class="badge badge--warning">THE REALITY OF THE PEOPLE AROUND YOU</span>
-          <h2 class="section-title">Do the People Around You Face These Issues?</h2>
-          <p class="section-subtitle">Look closely at your friends, family, colleagues, and clients. Almost everyone is
-            fighting a quiet battle with money.</p>
-        </div>
-
-        <div class="pain-grid">
-          <div class="pain-item">
-            <div class="pain-icon">⚠️</div>
-            <div class="pain-content">
-              <h4>Lakhs of Debts, Loans, and EMIs</h4>
-              <p>Stuck in the monthly cycle with constant pressure hanging over their heads.</p>
-            </div>
-          </div>
-
-          <div class="pain-item">
-            <div class="pain-icon">⚠️</div>
-            <div class="pain-content">
-              <h4>No Source of Additional Income</h4>
-              <p>Dependent on a single paycheck and feeling helpless when expenses spike.</p>
-            </div>
-          </div>
-
-          <div class="pain-item">
-            <div class="pain-icon">⚠️</div>
-            <div class="pain-content">
-              <h4>No Savings or Money for the Future</h4>
-              <p>Constantly living paycheck-to-paycheck with zero financial cushion.</p>
-            </div>
-          </div>
-
-          <div class="pain-item">
-            <div class="pain-icon">⚠️</div>
-            <div class="pain-content">
-              <h4>Ever-Increasing Unnecessary Expenses</h4>
-              <p>Compulsive spending to cope with emotional distress and emptiness.</p>
-            </div>
-          </div>
-
-          <div class="pain-item">
-            <div class="pain-icon">⚠️</div>
-            <div class="pain-content">
-              <h4>Stress and Anxiety from Monetary Pressure</h4>
-              <p>Sleepless nights, chronic tension, and emotional burnout tied to finances.</p>
-            </div>
-          </div>
-
-          <div class="pain-item">
-            <div class="pain-icon">⚠️</div>
-            <div class="pain-content">
-              <h4>Low Self-Esteem & Confidence to Ask for Money</h4>
-              <p>Undercharging, giving work away for free, or terrified to ask for a raise.</p>
-            </div>
-          </div>
-
-          <div class="pain-item">
-            <div class="pain-icon">⚠️</div>
-            <div class="pain-content">
-              <h4>Relationships Strained by Money Frustration</h4>
-              <p>Frequent arguments with spouses and parents caused by financial tightness.</p>
-            </div>
-          </div>
-
-          <div class="pain-item">
-            <div class="pain-icon">⚠️</div>
-            <div class="pain-content">
-              <h4>Procrastination & Habit of Delaying Work</h4>
-              <p>Subconscious fear of success or fear of failure triggering heavy avoidance.</p>
-            </div>
-          </div>
-
-          <div class="pain-item">
-            <div class="pain-icon">⚠️</div>
-            <div class="pain-content">
-              <h4>Money Stuck for Years With No Return</h4>
-              <p>Lent money to others or awaiting payments that never arrive due to bad energetic boundaries.</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="pain-footer text-center">
-          <p class="pain-footer-lead">As a certified Money EFT Practitioner, you become the person who knows how to
-            unlock these exact knots.</p>
-          <a href="https://live.sonalwadhwa.com/payment-secure-page" target="_blank" rel="noopener" class="btn btn--primary">Learn How To Help Them →</a>
-        </div>
-      </div>
-    </section>
-
-    <!-- TRANSFORMATION FOR YOUR CLIENTS -->
-    <section class="section-client-transformation" id="client-transformation">
-      <div class="container">
-        <div class="section-header text-center">
-          <span class="badge badge--emerald">THE PRACTITIONER IMPACT</span>
-          <h2 class="section-title">When You Practice EFT On Your Clients, Friends, or Family</h2>
-          <p class="section-subtitle">Here is the tangible, visible transformation they experience in their daily lives
-            after tapping with you:</p>
-        </div>
-
-        <div class="client-results-grid">
-          <div class="result-card">
-            <div class="result-check">✓</div>
-            <p>They'll wake up each day feeling light, focused, and genuinely motivated</p>
-          </div>
-          <div class="result-card">
-            <div class="result-check">✓</div>
-            <p>They'll tackle financial goals and career challenges with grounded confidence</p>
-          </div>
-          <div class="result-card">
-            <div class="result-check">✓</div>
-            <p>They'll feel completely in control of their finances rather than controlled by them</p>
-          </div>
-          <div class="result-card">
-            <div class="result-check">✓</div>
-            <p>They'll move steadily toward a debt-free, peaceful, and financially free life</p>
-          </div>
-          <div class="result-card">
-            <div class="result-check">✓</div>
-            <p>They'll feel confident, worthy, and empowered about receiving money</p>
-          </div>
-          <div class="result-card">
-            <div class="result-check">✓</div>
-            <p>They'll build wealth — and actually enjoy life without chronic guilt</p>
-          </div>
-          <div class="result-card">
-            <div class="result-check">✓</div>
-            <p>They'll break free from deep societal and family conditioning around money</p>
-          </div>
-          <div class="result-card">
-            <div class="result-check">✓</div>
-            <p>They'll live with sustainable financial peace, emotional stability, and security</p>
+          <div class="pillar">
+            <h3>The practitioner path</h3>
+            <p>By Day 2 you see how this becomes a coaching practice or second income, not a certificate in a drawer.</p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- SAY GOODBYE TO -->
-    <section class="section-goodbye" id="goodbye">
-      <div class="container text-center">
-        <h2 class="section-title">Say Goodbye To</h2>
-        <p class="section-subtitle">The old emotional baggage holding you and your future clients back</p>
-        <div class="goodbye-chips">
-          <span class="chip">Self-Doubt</span>
-          <span class="chip">Low Productivity</span>
-          <span class="chip">Fear of Failure</span>
-          <span class="chip">Suffering Because of Others</span>
-          <span class="chip">Unexplained Sadness</span>
-          <span class="chip">Career Confusion</span>
-          <span class="chip">Worry About the Future</span>
-          <span class="chip">Time-Wasting Habits</span>
-          <span class="chip">Being Stuck in the Past</span>
+    <!-- CURRICULUM -->
+    <section class="section section--subtle curriculum" id="curriculum">
+      <div class="container container--narrow">
+        <div class="section-head">
+          <h2 class="section-title">What you'll learn in 2 days</h2>
+          <p class="section-sub">6 hands-on hours, 3 each day, from zero to confident practitioner. Tap a day to see the lessons.</p>
         </div>
+
+        <details class="day" open>
+          <summary class="day__summary">
+            <span class="day__badge">Day 1 · <span data-webinar="day1_badge">17 OCT</span> · <span data-webinar="webinar_time">12–3 PM</span></span>
+            <span class="day__title">Foundations and the complete EFT tapping process</span>
+            <span class="day__chev" aria-hidden="true"></span>
+          </summary>
+          <ul class="day__lessons">
+            <li><strong>What EFT tapping is.</strong> The neuroscience, energy psychology and body-based principles behind it.</li>
+            <li><strong>Tapping points and meridians.</strong> Where each point is, how to activate it, and what it connects to.</li>
+            <li><strong>Money mindset.</strong> Moving your nervous system out of scarcity and fight-or-flight.</li>
+            <li><strong>The full tapping process.</strong> Setup statements, reminder phrases, rounds and how to measure progress.</li>
+            <li><strong>Clearing money beliefs.</strong> Releasing family money stories, fear of debt and hidden blocks.</li>
+          </ul>
+        </details>
+
+        <details class="day day--featured">
+          <summary class="day__summary">
+            <span class="day__badge">Day 2 · <span data-webinar="day2_badge">18 OCT</span> · <span data-webinar="webinar_time">12–3 PM</span></span>
+            <span class="day__title">Scripting, running sessions and launching your practice</span>
+            <span class="day__chev" aria-hidden="true"></span>
+          </summary>
+          <ul class="day__lessons">
+            <li><strong>Writing tapping scripts.</strong> Custom phrases for money fears, imposter feelings and income ceilings.</li>
+            <li><strong>Running 1-on-1 sessions.</strong> A step-by-step way to take a client from high anxiety to calm in about 20 minutes.</li>
+            <li><strong>Shifting to a growth mindset.</strong> Reframes that ease hesitation around pricing and receiving.</li>
+            <li><strong>The market opportunity.</strong> Why professionals and entrepreneurs are looking for money mindset practitioners.</li>
+            <li><strong>Getting your first clients.</strong> Packaging sessions, ethical pricing and signing paying clients.</li>
+          </ul>
+        </details>
       </div>
     </section>
 
-    <!-- CURRICULUM SECTION -->
-    <section class="section-curriculum" id="curriculum">
-      <div class="container">
-        <div class="section-header text-center">
-          <span class="badge badge--gold">STEP-BY-STEP ROADMAP</span>
-          <h2 class="section-title">Here's What You'll Learn in 2 Days</h2>
-          <p class="section-subtitle">A meticulously structured 6-hour hands-on curriculum taking you from zero to confident
-            practitioner (3 hours each day).</p>
+    <!-- FORMAT + SCHEDULE -->
+    <section class="section format" id="live-format">
+      <div class="container container--narrow">
+        <div class="section-head">
+          <h2 class="section-title">2 days, LIVE with Sonal, 3 hours each day</h2>
+          <p class="section-sub">Fully interactive. You practise EFT live with Sonal instead of watching slides.</p>
         </div>
-
-        <div class="curriculum-timeline">
-          <!-- Day 1 -->
-          <div class="curriculum-card">
-            <div class="curriculum-card__header">
-              <div class="day-badge">DAY 1 · <span data-webinar="day1_badge">17 OCT</span> (<span data-webinar="webinar_time">12–3 PM</span>)</div>
-              <h3 class="day-title">Foundations, Meridian Science & The Complete EFT Tapping Process</h3>
-            </div>
-            <ul class="day-lessons">
-              <li>
-                <span class="lesson-bullet">●</span>
-                <div><strong>What is EFT Tapping?</strong> The neuroscience, energy psychology, and somatic principles
-                  behind Emotional Freedom Technique.</div>
-              </li>
-              <li>
-                <span class="lesson-bullet">●</span>
-                <div><strong>EFT Tapping Points & Meridian Science:</strong> Precise location, activation method, and
-                  the subconscious emotional and organ connections for every upper-body meridian point.</div>
-              </li>
-              <li>
-                <span class="lesson-bullet">●</span>
-                <div><strong>Money Mindset Architecture:</strong> Rewiring the nervous system from chronic scarcity and
-                  fight-or-flight into grounded abundance receptivity.</div>
-              </li>
-              <li>
-                <span class="lesson-bullet">●</span>
-                <div><strong>The Full EFT Tapping Process & Cycles:</strong> Setup statements, karate chop points,
-                  reminder phrases, 9-gamut cycles, calibration (SUD scale), and somatic integration.</div>
-              </li>
-              <li>
-                <span class="lesson-bullet">●</span>
-                <div><strong>Clearing Financial Trauma & Limiting Beliefs:</strong> How EFT clears generational money
-                  stories, fear of debt, and subconscious blocks in personal development.</div>
-              </li>
-            </ul>
+        <div class="schedule">
+          <div class="schedule__day">
+            <span class="schedule__label">Day 1</span>
+            <strong class="schedule__date" data-webinar="day1_date">17 October (Sat)</strong>
+            <span class="schedule__time"><span data-webinar="webinar_time">12–3 PM</span>, 3 hours</span>
           </div>
-
-          <!-- Day 2 (Featured Monetization Day) -->
-          <div class="curriculum-card curriculum-card--day2">
-            <div class="curriculum-card__ribbon">MONETIZATION & PRACTITIONER LAUNCH</div>
-            <div class="curriculum-card__header">
-              <div class="day-badge day-badge--highlight">DAY 2 · <span data-webinar="day2_badge">18 OCT</span> (<span data-webinar="webinar_time">12–3 PM</span>)</div>
-              <h3 class="day-title">Scripting Mastery, Delivering Breakthrough Sessions & Career Launch</h3>
-            </div>
-            <ul class="day-lessons">
-              <li>
-                <span class="lesson-bullet">●</span>
-                <div><strong>How to Create High-Impact EFT Scripts:</strong> Rapidly formulating customized phrases for
-                  specific financial fears, imposter syndrome, and income ceilings.</div>
-              </li>
-              <li>
-                <span class="lesson-bullet">●</span>
-                <div><strong>How to Deliver Transformational 1-on-1 Sessions:</strong> Step-by-step framework to guide
-                  clients from peak financial anxiety (level 10) to complete calm and clarity in 20 minutes.</div>
-              </li>
-              <li>
-                <span class="lesson-bullet">●</span>
-                <div><strong>Shifting Fixed to Growth Mindset in Minutes:</strong> Somatic reframes that permanently
-                  eliminate hesitation around pricing, self-worth, and receiving wealth.</div>
-              </li>
-              <li>
-                <span class="lesson-bullet">●</span>
-                <div><strong>The Surging Market Opportunity:</strong> Why high-stress professionals and entrepreneurs
-                  are actively seeking certified money mindset and somatic practitioners in 2026+.</div>
-              </li>
-              <li>
-                <span class="lesson-bullet">●</span>
-                <div><strong>Monetization & Client Acquisition Blueprint:</strong> Practical roadmap on packaging your
-                  tapping sessions, ethical fee structures, and signing your first paying clients.</div>
-              </li>
-            </ul>
+          <div class="schedule__day">
+            <span class="schedule__label">Day 2</span>
+            <strong class="schedule__date" data-webinar="day2_date">18 October (Sun)</strong>
+            <span class="schedule__time"><span data-webinar="webinar_time">12–3 PM</span>, 3 hours</span>
           </div>
         </div>
+        <p class="format-note"><strong>No recordings are provided.</strong> Tapping is a body-based skill, best learned live with real-time correction from Sonal.</p>
       </div>
     </section>
 
-    <!-- LIVE FORMAT -->
-    <section class="section-format" id="live-format">
+    <!-- BONUSES -->
+    <section class="section section--subtle bonuses" id="bonuses">
       <div class="container">
-        <div class="format-card">
-          <div class="format-badge">EXPERIENTIAL PROGRAM</div>
-          <h2 class="section-title">2 Days, LIVE, With Sonal (3 Hours Each Day)</h2>
-          <p class="format-lead">
-            Fully interactive. This is an experiential program built so you <strong>practice EFT live with
-              Sonal</strong> — not just watch slides.
-          </p>
-          <div class="format-warning-box">
-            <div class="warning-icon">⛔</div>
-            <div>
-              <strong>No recordings will be provided.</strong>
-              <p>This is by design: EFT tapping is a somatic skill best learned live, with real-time posture correction,
-                voice modulation, and energetic guidance in the beginning.</p>
-            </div>
-          </div>
+        <div class="section-head">
+          <h2 class="section-title">Free bonuses when you register</h2>
+          <p class="section-sub">Worth <strong class="gold-text">₹52,796</strong>, included at no extra cost.</p>
         </div>
+
+        <div class="bonus-grid">
+          <article class="bonus">
+            <div class="bonus__img">
+              <picture>
+                <source srcset="images/Bonus5-300w.webp 300w, images/Bonus5-540w.webp 540w, images/Bonus5.webp 1080w" sizes="(max-width: 767px) 112px, 220px" type="image/webp">
+                <img src="images/Bonus5.png" alt="Weekly Tapping Masterclass" loading="lazy" width="1080" height="1080" />
+              </picture>
+            </div>
+            <div class="bonus__body">
+              <p class="bonus__meta">Bonus 1 <span>Worth ₹49,999</span></p>
+              <h3 class="bonus__title">Lifetime access to the Weekly Tapping Masterclass</h3>
+              <p class="bonus__desc">Keep practising every week with a supportive tapping community.</p>
+            </div>
+          </article>
+
+          <article class="bonus">
+            <div class="bonus__img">
+              <picture>
+                <source srcset="images/Bonus1-300w.webp 300w, images/Bonus1-540w.webp 540w, images/Bonus1.webp 1080w" sizes="(max-width: 767px) 112px, 220px" type="image/webp">
+                <img src="images/Bonus1.png" alt="EFT Scripting Masterclass and ChatGPT prompts" loading="lazy" width="1080" height="1080" />
+              </picture>
+            </div>
+            <div class="bonus__body">
+              <p class="bonus__meta">Bonus 2 <span>Worth ₹1,099</span></p>
+              <h3 class="bonus__title">EFT Scripting Masterclass + ChatGPT prompts</h3>
+              <p class="bonus__desc">Ready prompt templates to write targeted tapping scripts in seconds.</p>
+            </div>
+          </article>
+
+          <article class="bonus">
+            <div class="bonus__img">
+              <picture>
+                <source srcset="images/Bonus2-300w.webp 300w, images/Bonus2-540w.webp 540w, images/Bonus2.webp 1080w" sizes="(max-width: 767px) 112px, 220px" type="image/webp">
+                <img src="images/Bonus2.png" alt="25 Common Daily Issues Tapping Secrets ebook" loading="lazy" width="1080" height="1080" />
+              </picture>
+            </div>
+            <div class="bonus__body">
+              <p class="bonus__meta">Bonus 3 <span>Worth ₹1,149</span></p>
+              <h3 class="bonus__title">25 Common Daily Issues Tapping Secrets ebook</h3>
+              <p class="bonus__desc">A pocket guide for everyday panic, guilt, surprise bills and family tension.</p>
+            </div>
+          </article>
+
+          <article class="bonus">
+            <div class="bonus__img">
+              <picture>
+                <source srcset="images/Bonus3-300w.webp 300w, images/Bonus3-540w.webp 540w, images/Bonus3.webp 1080w" sizes="(max-width: 767px) 112px, 220px" type="image/webp">
+                <img src="images/Bonus3.png" alt="50 Fears and Limiting Beliefs Around Money ebook" loading="lazy" width="1080" height="1080" />
+              </picture>
+            </div>
+            <div class="bonus__body">
+              <p class="bonus__meta">Bonus 4 <span>Worth ₹549</span></p>
+              <h3 class="bonus__title">50 Fears &amp; Limiting Beliefs Around Money ebook</h3>
+              <p class="bonus__desc">The top 50 money blocks, their roots, and the tapping statements for each.</p>
+            </div>
+          </article>
+        </div>
+
+        <figure class="bundle">
+          <picture>
+            <source srcset="images/Bonus-stack-300w.webp 300w, images/Bonus-stack-540w.webp 540w, images/Bonus-stack.webp 1080w" sizes="(max-width: 767px) 90vw, 520px" type="image/webp">
+            <img src="images/Bonus_stack.png" alt="The complete Money EFT Practitioner bundle with all bonuses" class="bundle__img" loading="lazy" width="1080" height="1080" />
+          </picture>
+        </figure>
       </div>
     </section>
 
-    <!-- BONUSES SECTION (Named 3D Product Boxes - Zero Cropping) -->
-    <section class="section-bonuses" id="bonuses">
-      <div class="container">
-        <div class="section-header text-center">
-          <span class="badge badge--ruby">INCLUDED 100% FREE TODAY</span>
-          <h2 class="section-title">Register Now and Get These FREE Gifts</h2>
-          <p class="section-subtitle">Total Value of Gifts: <strong class="gold-text">₹52,796</strong> — Yours at Zero
-            Additional Cost Today</p>
+    <!-- ABOUT (condensed) -->
+    <section class="section about" id="about">
+      <div class="container about__grid">
+        <div class="about__media">
+          <picture>
+            <source srcset="images/about-400w.webp 400w, images/about-768w.webp 768w, images/about.webp 1536w" sizes="(max-width: 991px) 100vw, 45vw" type="image/webp">
+            <img src="images/about.jpg" alt="Sonal Wadhwa, EFT Tapping and Money Mindset Coach" class="about__img" loading="lazy" width="1536" height="1024" />
+          </picture>
         </div>
-
-        <div class="bonuses-grid">
-          <!-- Bonus 1: Bonus5.png -->
-          <div class="bonus-card">
-            <div class="bonus-card__img-wrap">
-              <img src="images/Bonus5.png" alt="Weekly Tapping Masterclass 3D Box" loading="lazy" />
-            </div>
-            <div class="bonus-tag">BONUS #1</div>
-            <div class="bonus-value">VALUE: ₹49,999</div>
-            <h3 class="bonus-title">Lifetime Access to Weekly Tapping Masterclass</h3>
-            <p class="bonus-desc">
-              Stay connected, sharpen your tapping skills continuously, and tap alongside a supportive community every
-              single week.
-            </p>
-            <div class="bonus-pill">FREE WITH WORKSHOP</div>
-          </div>
-
-          <!-- Bonus 2: Bonus1.png -->
-          <div class="bonus-card">
-            <div class="bonus-card__img-wrap">
-              <img src="images/Bonus1.png" alt="EFT Scripting Masterclass + ChatGPT Prompts 3D Box" loading="lazy" />
-            </div>
-            <div class="bonus-tag">BONUS #2</div>
-            <div class="bonus-value">VALUE: ₹1,099</div>
-            <h3 class="bonus-title">Lifetime Access to EFT Scripting Masterclass + ChatGPT Prompts</h3>
-            <p class="bonus-desc">
-              Never get stuck on what words to use. Plug-and-play AI prompt templates to generate customized,
-              hyper-targeted tapping scripts in seconds.
-            </p>
-            <div class="bonus-pill">FREE WITH WORKSHOP</div>
-          </div>
-
-          <!-- Bonus 3: Bonus2.png -->
-          <div class="bonus-card">
-            <div class="bonus-card__img-wrap">
-              <img src="images/Bonus2.png" alt="25 Common Daily Issues Tapping Scripts 3D Box" loading="lazy" />
-            </div>
-            <div class="bonus-tag">BONUS #3</div>
-            <div class="bonus-value">VALUE: ₹1,149</div>
-            <h3 class="bonus-title">25 Common Daily Issues Tapping Secrets Ebook</h3>
-            <p class="bonus-desc">
-              Your quick-reference pocket guide to dissolving everyday roadblocks: panic, guilt, unexpected bills, and
-              family tension.
-            </p>
-            <div class="bonus-pill">FREE WITH WORKSHOP</div>
-          </div>
-
-          <!-- Bonus 4: Bonus3.png -->
-          <div class="bonus-card">
-            <div class="bonus-card__img-wrap">
-              <img src="images/Bonus3.png" alt="50 Fears & Limiting Beliefs Ebook 3D Box" loading="lazy" />
-            </div>
-            <div class="bonus-tag">BONUS #4</div>
-            <div class="bonus-value">VALUE: ₹549</div>
-            <h3 class="bonus-title">50 Fears & Limiting Beliefs Around Money — Shattered Forever Ebook</h3>
-            <p class="bonus-desc">
-              Comprehensive catalogue of the top 50 money blocks, their root causes, and the exact tapping statements to
-              dismantle each one.
-            </p>
-            <div class="bonus-pill">FREE WITH WORKSHOP</div>
-          </div>
-        </div>
-
-        <!-- Full Bundle Stack Mockup Visual (Bonus_stack.png) -->
-        <div class="bundle-visual-wrapper text-center">
-          <h3 class="bundle-visual-title">The Complete Money EFT Practitioner Stack</h3>
-          <img src="images/Bonus_stack.png"
-            alt="Complete Money EFT Practitioner Bundle with Bonuses, Certificates, and Currency Stack"
-            class="bundle-img" loading="lazy" />
-        </div>
-      </div>
-    </section>
-
-    <!-- VALUE STACK / PRICE SECTION -->
-    <section class="section-pricing" id="register">
-      <div class="container">
-        <div class="pricing-card">
-          <div class="pricing-card__urgency">
-            🚨 FEW SEATS LEFT — REGISTER BEFORE THE OFFER EXPIRES 🚨
-          </div>
-
-          <div class="pricing-card__header">
-            <span class="badge badge--gold">COMPLETE PRACTITIONER BUNDLE</span>
-            <h2 class="pricing-title">Secure Your Seat For The 2-Day LIVE Workshop</h2>
-            <p class="pricing-subtitle">Everything you need to master Money EFT and start practicing immediately.</p>
-          </div>
-
-          <!-- Countdown inside pricing box -->
-          <div class="pricing-timer">
-            <span class="pricing-timer__text" id="pricing-timer-label">Launch Special Pricing Closes In:</span>
-            <span class="pricing-timer__clock timer-display" id="pricing-timer">15:00</span>
-          </div>
-
-          <div class="value-stack-table">
-            <div class="stack-row">
-              <span class="stack-item">2-Day LIVE Money EFT Certification Workshop (<span data-webinar="webinar_date">17–18th October</span>, <span data-webinar="webinar_time">12–3 PM</span>)</span>
-              <span class="stack-val"><span data-webinar="original_price_formatted">₹999</span></span>
-            </div>
-            <div class="stack-row">
-              <span class="stack-item">Bonus 1: Weekly Tapping Masterclass Lifetime Access</span>
-              <span class="stack-val">₹49,999</span>
-            </div>
-            <div class="stack-row">
-              <span class="stack-item">Bonus 2: Scripting Masterclass + ChatGPT Prompts</span>
-              <span class="stack-val">₹1,099</span>
-            </div>
-            <div class="stack-row">
-              <span class="stack-item">Bonus 3: 25 Common Daily Issues Tapping Ebook</span>
-              <span class="stack-val">₹1,149</span>
-            </div>
-            <div class="stack-row">
-              <span class="stack-item">Bonus 4: 50 Fears & Limiting Beliefs Shattered Ebook</span>
-              <span class="stack-val">₹549</span>
-            </div>
-            <div class="stack-divider"></div>
-            <div class="stack-row stack-row--total">
-              <span class="stack-item">Total Real Value</span>
-              <span class="stack-val strike">₹53,795</span>
-            </div>
-            <div class="stack-row stack-row--regular">
-              <span class="stack-item">Regular Price</span>
-              <span class="stack-val strike"><span data-webinar="original_price_formatted">₹999</span></span>
-            </div>
-          </div>
-
-          <!-- Final Price Anchor -->
-          <div class="pricing-box">
-            <div class="pricing-box__label">TODAY'S SPECIAL PRICE:</div>
-            <div class="pricing-box__amount">
-              <span class="currency">₹</span>
-              <span class="num" data-webinar="price_raw">199</span>
-              <span class="inclusive">All Inclusive</span>
-            </div>
-          </div>
-
-          <div class="pricing-cta-wrap">
-            <a href="https://live.sonalwadhwa.com/payment-secure-page" target="_blank" rel="noopener"
-              class="btn btn--primary btn--large btn--pulse" id="main-register-cta" data-webinar-link>
-              Register Now — <span data-webinar="price_formatted">₹199</span>, Limited Spots | Filling Fast →
-            </a>
-            <p class="guarantee-text">
-              🔒 100% Secure Checkout • Instant WhatsApp Group Access
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ABOUT SONAL -->
-    <section class="section-about" id="about">
-      <div class="container">
-        <div class="about-grid">
-          <div class="about-image-wrapper">
-            <img src="images/about.jpg" alt="Sonal Wadhwa - EFT Tapping & Money Mindset Coach" class="about-img"
-              loading="lazy" />
-            <div class="about-badge">
-              <span>Sonal Wadhwa</span>
-              <small>EFT & Money Mindset Coach</small>
-            </div>
-          </div>
-          <div class="about-content">
-            <span class="badge badge--gold">MEET YOUR MENTOR</span>
-            <h2 class="about-title">Hi! I'm Sonal Wadhwa</h2>
-            <h3 class="about-subtitle">EFT Tapping and Money Mindset Coach</h3>
-
-            <div class="about-text">
-              <p>
-                Sonal believes every woman has the capability and strength to become whoever they want to be — but past
-                conditioning around money, and a lack of support, often gets in the way.
-              </p>
-              <p>
-                For the last 3 years she's coached women to build a mindset that overcomes those beliefs, strengthens
-                their relationship with money, and moves them toward a life of abundance. Her content helps women stop
-                compromising on their dreams and find a way to balance family and work — without trade-offs.
-              </p>
-            </div>
-
-            <div class="credentials-list">
-              <div class="cred-item">
-                <div class="cred-bullet">🎙️</div>
-                <div>
-                  <strong>Content Creator</strong> — Active on Instagram, Facebook, LinkedIn, YouTube, and podcasts,
-                  speaking on women's empowerment through money mindset.
-                </div>
-              </div>
-
-              <div class="cred-item">
-                <div class="cred-bullet">📖</div>
-                <div>
-                  <strong>Author of <em>One Hundred Percent</em></strong> — on how Indian women can balance family and
-                  wealth without compromising on either.
-                </div>
-              </div>
-
-              <div class="cred-item">
-                <div class="cred-bullet">💼</div>
-                <div>
-                  <strong>Business Process Consultant</strong> — Extensive experience consulting for Fortune 500 firms
-                  (EY, KPMG, PwC, Atos) across Telecom, Retail, FMCG, Banking, Manufacturing, and Oil & Gas, with deep
-                  SAP expertise.
-                </div>
-              </div>
-            </div>
-          </div>
+        <div class="about__copy">
+          <h2 class="section-title">Your mentor, Sonal Wadhwa</h2>
+          <p class="about__lead">EFT Tapping and Money Mindset Coach. For the last 3 years Sonal has helped women overcome money conditioning, strengthen their relationship with money and balance family and work without trade-offs.</p>
+          <ul class="creds">
+            <li><strong>Author of <em>One Hundred Percent</em></strong>, on how Indian women can balance family and wealth.</li>
+            <li><strong>Fortune 500 consultant</strong> for EY, KPMG, PwC and Atos across banking, retail, FMCG and more.</li>
+            <li><strong>Content creator</strong> on Instagram, YouTube, LinkedIn and podcasts, speaking on money mindset.</li>
+          </ul>
         </div>
       </div>
     </section>
 
     <!-- WHO CAN ATTEND -->
-    <section class="section-who" id="who-can-attend">
-      <div class="container">
-        <div class="section-header text-center">
-          <span class="badge badge--emerald">ELIGIBILITY & COMMUNITY</span>
-          <h2 class="section-title">Who Can Attend?</h2>
-          <p class="section-subtitle">This certification workshop is crafted for those with a deep desire to facilitate
-            healing and build a meaningful practice.</p>
+    <section class="section section--subtle who" id="who-can-attend">
+      <div class="container container--narrow">
+        <div class="section-head">
+          <h2 class="section-title">Who is this for?</h2>
+          <p class="section-sub">No coaching background or psychology degree needed.</p>
         </div>
-
-        <div class="attend-grid">
-          <div class="attend-card"><span>🧘</span> Life Coaches</div>
-          <div class="attend-card"><span>🧠</span> Modality Experts (NLP, CBT, etc.)</div>
-          <div class="attend-card"><span>💬</span> Therapists & Counselors</div>
-          <div class="attend-card"><span>✨</span> Energy & Pranic Healers</div>
-          <div class="attend-card"><span>🔮</span> Occult & Tarot Consultants</div>
-          <div class="attend-card"><span>🎓</span> Corporate Trainers & Coaches</div>
-          <div class="attend-card"><span>📚</span> Passionate Lifelong Learners</div>
-          <div class="attend-card"><span>💼</span> Anyone Wanting a 2nd Income Stream</div>
-          <div class="attend-card"><span>🚀</span> Anyone Wanting to Switch Careers</div>
-        </div>
-
-        <p class="attend-footer text-center">
-          <em>...and anyone who wants to grow, heal their relationship with wealth, and tap into their highest
-            potential.</em>
-        </p>
+        <ul class="who-list">
+          <li>Life coaches</li>
+          <li>NLP, CBT and other modality experts</li>
+          <li>Therapists and counsellors</li>
+          <li>Energy and pranic healers</li>
+          <li>Tarot and occult consultants</li>
+          <li>Corporate trainers</li>
+          <li>Lifelong learners</li>
+          <li>Anyone wanting a second income</li>
+          <li>Anyone wanting to switch careers</li>
+        </ul>
       </div>
     </section>
 
-    <!-- SOCIAL PROOF ("The stories won't stop, ever!" - Zero Cropping Grid) -->
-    <section class="section-social-proof" id="stories">
-      <div class="container">
-        <div class="section-header text-center">
-          <span class="badge badge--gold">WALL OF LOVE</span>
-          <h2 class="section-title">“The Stories Won't Stop, Ever!”</h2>
-          <p class="section-subtitle">Genuine WhatsApp messages, client reviews &amp; breakthrough stories from students whose lives shifted through Sonal's EFT guidance. Click any image to view in full size.</p>
-        </div>
+    <!-- PRICE / REGISTER -->
+    <section class="section pricing" id="register">
+      <div class="container container--narrow">
+        <div class="pricing-card">
+          <p class="pricing-card__urgency">Few seats left at this price</p>
+          <h2 class="pricing-title">Secure your seat for the 2-Day LIVE Workshop</h2>
 
-        <div class="stories-grid">
-          <div class="story-screenshot" onclick="openLightbox('images/t1.webp')">
-            <img src="images/t1.webp" alt="Client Story 1" loading="lazy" />
-            <div class="story-screenshot__overlay"><span>Tap to expand</span></div>
+          <div class="pricing-timer">
+            <span class="pricing-timer__text" id="pricing-timer-label">Launch Special Pricing Closes In:</span>
+            <span class="pricing-timer__clock timer-display" id="pricing-timer">15:00</span>
           </div>
-          <div class="story-screenshot" onclick="openLightbox('images/t2.webp')">
-            <img src="images/t2.webp" alt="Client Story 2" loading="lazy" />
-            <div class="story-screenshot__overlay"><span>Tap to expand</span></div>
+
+          <dl class="stack">
+            <div class="stack__row">
+              <dt>2-Day LIVE Money EFT Certification Workshop (<span data-webinar="webinar_date">17–18th October</span>, <span data-webinar="webinar_time">12–3 PM</span>)</dt>
+              <dd><span data-webinar="original_price_formatted">₹999</span></dd>
+            </div>
+            <div class="stack__row"><dt>Bonus 1: Weekly Tapping Masterclass, lifetime access</dt><dd>₹49,999</dd></div>
+            <div class="stack__row"><dt>Bonus 2: Scripting Masterclass + ChatGPT prompts</dt><dd>₹1,099</dd></div>
+            <div class="stack__row"><dt>Bonus 3: 25 Common Daily Issues Tapping ebook</dt><dd>₹1,149</dd></div>
+            <div class="stack__row"><dt>Bonus 4: 50 Fears &amp; Limiting Beliefs ebook</dt><dd>₹549</dd></div>
+            <div class="stack__row stack__row--total"><dt>Total value</dt><dd><s>₹53,795</s></dd></div>
+          </dl>
+
+          <div class="pricing-box">
+            <span class="pricing-box__label">Your price today</span>
+            <span class="pricing-box__amount"><span class="currency">₹</span><span class="num" data-webinar="price_raw">199</span></span>
+            <span class="pricing-box__was">Regular <s data-webinar="original_price_formatted">₹999</s>, all inclusive</span>
           </div>
-          <div class="story-screenshot" onclick="openLightbox('images/t3.webp')">
-            <img src="images/t3.webp" alt="Client Story 3" loading="lazy" />
-            <div class="story-screenshot__overlay"><span>Tap to expand</span></div>
-          </div>
-          <div class="story-screenshot" onclick="openLightbox('images/t4.webp')">
-            <img src="images/t4.webp" alt="Client Story 4" loading="lazy" />
-            <div class="story-screenshot__overlay"><span>Tap to expand</span></div>
-          </div>
-          <div class="story-screenshot" onclick="openLightbox('images/WhatsApp Image 2026-09-28 at 14.57.10.jpeg')">
-            <img src="images/WhatsApp Image 2026-09-28 at 14.57.10.jpeg" alt="WhatsApp Testimonial - Client Feedback 1" loading="lazy" />
-            <div class="story-screenshot__overlay"><span>Tap to expand</span></div>
-          </div>
-          <div class="story-screenshot" onclick="openLightbox('images/WhatsApp Image 2026-09-28 at 14.57.10 (1).jpeg')">
-            <img src="images/WhatsApp Image 2026-09-28 at 14.57.10 (1).jpeg" alt="WhatsApp Testimonial - Client Feedback 2" loading="lazy" />
-            <div class="story-screenshot__overlay"><span>Tap to expand</span></div>
-          </div>
-          <div class="story-screenshot" onclick="openLightbox('images/WhatsApp Image 2026-09-28 at 14.57.12.jpeg')">
-            <img src="images/WhatsApp Image 2026-09-28 at 14.57.12.jpeg" alt="WhatsApp Testimonial - Client Feedback 3" loading="lazy" />
-            <div class="story-screenshot__overlay"><span>Tap to expand</span></div>
-          </div>
-          <div class="story-screenshot" onclick="openLightbox('images/WhatsApp Image 2026-09-28 at 14.57.12 (1).jpeg')">
-            <img src="images/WhatsApp Image 2026-09-28 at 14.57.12 (1).jpeg" alt="WhatsApp Testimonial - Client Feedback 4" loading="lazy" />
-            <div class="story-screenshot__overlay"><span>Tap to expand</span></div>
-          </div>
-          <div class="story-screenshot" onclick="openLightbox('images/WhatsApp Image 2026-09-28 at 14.57.14.jpeg')">
-            <img src="images/WhatsApp Image 2026-09-28 at 14.57.14.jpeg" alt="WhatsApp Testimonial - Client Feedback 5" loading="lazy" />
-            <div class="story-screenshot__overlay"><span>Tap to expand</span></div>
-          </div>
+
+          <a data-webinar-link href="https://live.sonalwadhwa.com/payment-secure-page" target="_blank" rel="noopener" class="btn btn--primary btn--large btn--block" id="main-register-cta"><span>I Want to Become a Practitioner<span class="btn__price"> · <span data-webinar="price_formatted">₹199</span></span></span></a>
+          <p class="pricing-after">Secure checkout. After payment you go straight to the private WhatsApp group, where Zoom links and details are shared.</p>
         </div>
       </div>
     </section>
 
-    <!-- FAQ SECTION -->
-    <section class="section-faq" id="faq">
-      <div class="container faq-container">
-        <div class="section-header text-center">
-          <span class="badge badge--emerald">HAVE QUESTIONS?</span>
-          <h2 class="section-title">Frequently Asked Questions</h2>
-          <p class="section-subtitle">Everything you need to know about the 2-Day LIVE Money EFT Certification Workshop.
-          </p>
+    <!-- FAQ -->
+    <section class="section section--subtle faq" id="faq">
+      <div class="container container--narrow">
+        <div class="section-head">
+          <h2 class="section-title">Frequently asked questions</h2>
         </div>
 
         <div class="accordion" id="faqAccordion">
-
           <div class="accordion-item">
             <button class="accordion-header" aria-expanded="false">
               <span>What happens when I make the payment?</span>
-              <span class="accordion-icon">+</span>
+              <span class="accordion-icon" aria-hidden="true">+</span>
             </button>
             <div class="accordion-body">
-              <p>You'll be instantly redirected to a confirmation page with a direct button to join the private workshop
-                WhatsApp group. All Zoom links, schedule details, and orientation materials will be shared there.</p>
+              <p>You'll be redirected to a confirmation page with a button to join the private workshop WhatsApp group. All Zoom links, schedule details and orientation materials are shared there.</p>
             </div>
           </div>
 
           <div class="accordion-item">
             <button class="accordion-header" aria-expanded="false">
               <span>What language is the course in?</span>
-              <span class="accordion-icon">+</span>
+              <span class="accordion-icon" aria-hidden="true">+</span>
             </button>
             <div class="accordion-body">
-              <p>The workshop is conducted in simple, conversational English, mixed with easy everyday examples so
-                everyone can understand and implement effortlessly.</p>
+              <p>Simple, conversational English, with easy everyday examples so everyone can follow and use it.</p>
             </div>
           </div>
 
           <div class="accordion-item">
             <button class="accordion-header" aria-expanded="false">
               <span>Is this recorded or live?</span>
-              <span class="accordion-icon">+</span>
+              <span class="accordion-icon" aria-hidden="true">+</span>
             </button>
             <div class="accordion-body">
-              <p><strong>Completely live — no recordings will be provided.</strong> EFT tapping is an experiential
-                practice that requires live interaction, real-time corrections, and group energetic resonance to master
-                effectively.</p>
+              <p><strong>Completely live. No recordings are provided.</strong> EFT tapping is an experiential practice that needs live interaction and real-time correction to learn well.</p>
             </div>
           </div>
 
           <div class="accordion-item">
             <button class="accordion-header" aria-expanded="false">
               <span>When do I get the bonuses?</span>
-              <span class="accordion-icon">+</span>
+              <span class="accordion-icon" aria-hidden="true">+</span>
             </button>
             <div class="accordion-body">
-              <p>Once you join the WhatsApp group, all bonus download links (Ebooks, Scripting Masterclass, AI ChatGPT
-                prompts, and Weekly Tapping access) are shared with you after the 2-day workshop is completed.</p>
+              <p>All bonus links (ebooks, Scripting Masterclass, ChatGPT prompts and Weekly Tapping access) are shared in the WhatsApp group after the 2-day workshop is completed.</p>
             </div>
           </div>
 
           <div class="accordion-item">
             <button class="accordion-header" aria-expanded="false">
               <span>Do I need to prepare anything?</span>
-              <span class="accordion-icon">+</span>
+              <span class="accordion-icon" aria-hidden="true">+</span>
             </button>
             <div class="accordion-body">
-              <p>Not at all! Just bring a notepad and pen to capture your breakthroughs and insights, ensure a stable
-                internet connection, and come with an open heart ready to tap.</p>
+              <p>Just a notepad and pen, a stable internet connection, and an open mind ready to tap.</p>
             </div>
           </div>
 
           <div class="accordion-item">
             <button class="accordion-header" aria-expanded="false">
               <span>Do I need previous EFT experience?</span>
-              <span class="accordion-icon">+</span>
+              <span class="accordion-icon" aria-hidden="true">+</span>
             </button>
             <div class="accordion-body">
-              <p>No. The workshop is meticulously built to teach EFT from the ground up, starting from the basic tapping
-                points and meridian theory to advanced scripting and practitioner facilitation.</p>
+              <p>No. The workshop teaches EFT from the ground up, from the basic tapping points to scripting and running sessions.</p>
             </div>
           </div>
 
           <div class="accordion-item">
             <button class="accordion-header" aria-expanded="false">
               <span>Do I need to already be a coach, or a psychologist?</span>
-              <span class="accordion-icon">+</span>
+              <span class="accordion-icon" aria-hidden="true">+</span>
             </button>
             <div class="accordion-body">
-              <p>No to both. You do not need any coaching background, and you do not need to be a mental health
-                professional or psychologist to attend or to practice EFT as taught here.</p>
+              <p>No to both. You don't need a coaching background or to be a mental health professional to attend or to practise EFT as taught here.</p>
             </div>
           </div>
 
           <div class="accordion-item">
             <button class="accordion-header" aria-expanded="false">
               <span>Is this an internationally accredited EFT certification?</span>
-              <span class="accordion-icon">+</span>
+              <span class="accordion-icon" aria-hidden="true">+</span>
             </button>
             <div class="accordion-body">
-              <p>No. This is Sonal Wadhwa's proprietary practitioner certification, based on her personal methodology,
-                corporate consulting experience, and years of coaching — not a third-party accredited body. It equips
-                you to practice and build a real practitioner career, but it is not an internationally recognized
-                statutory credential.</p>
+              <p>No. This is Sonal Wadhwa's own practitioner certification, based on her methodology, consulting experience and years of coaching. It is not from a third-party accredited body and is not an internationally recognised statutory credential.</p>
             </div>
           </div>
 
           <div class="accordion-item">
             <button class="accordion-header" aria-expanded="false">
               <span>Can I do this alongside my job?</span>
-              <span class="accordion-icon">+</span>
+              <span class="accordion-icon" aria-hidden="true">+</span>
             </button>
             <div class="accordion-body">
-              <p>Yes — absolutely. Most practitioners begin offering 1-on-1 tapping sessions on evenings and weekends as
-                a side practice, gradually expanding into a full-time coaching career at their own pace.</p>
+              <p>Yes. Most practitioners start with 1-on-1 sessions on evenings and weekends, and grow into a full-time practice at their own pace.</p>
             </div>
           </div>
 
           <div class="accordion-item">
             <button class="accordion-header" aria-expanded="false">
               <span>Will you guarantee I make money from this?</span>
-              <span class="accordion-icon">+</span>
+              <span class="accordion-icon" aria-hidden="true">+</span>
             </button>
             <div class="accordion-body">
-              <p>No. We teach the skill, session delivery, and the fundamentals of building a practice around it. Your
-                actual business and financial results depend entirely on your personal dedication, practice,
-                positioning, and effort — we do not promise fixed income or business outcomes.</p>
+              <p>No. We teach the skill, session delivery and the basics of building a practice. Your results depend on your own practice, positioning and effort. We do not promise any income or business outcome.</p>
             </div>
           </div>
-
         </div>
       </div>
     </section>
 
-    <!-- FINAL CTA STRIP -->
-    <section class="section-final-cta text-center">
-      <div class="container">
-        <span class="badge badge--gold">DON'T WAIT — SEATS FILL FAST</span>
+    <!-- FINAL CTA -->
+    <section class="section final-cta" id="final-cta">
+      <div class="container container--narrow">
         <h2 class="final-title">Start Your Journey as a Certified Money EFT Practitioner</h2>
-        <p class="final-subtitle">Transform your own financial reality while learning the skill to facilitate
-          breakthroughs for others.</p>
-
-        <div class="final-cta-box">
-          <div class="final-price-tag">Complete 2-Day Workshop + ₹52,796 Bonuses for <strong><span data-webinar="price_formatted">₹199</span> Only</strong></div>
-          <a href="https://live.sonalwadhwa.com/payment-secure-page" target="_blank" rel="noopener" class="btn btn--primary btn--large btn--pulse" data-webinar-link>
-            Yes! Make Me A Practitioner →
-          </a>
-        </div>
+        <p class="final-sub">Change your own money story while learning the skill to help others change theirs.</p>
+        <a data-webinar-link href="https://live.sonalwadhwa.com/payment-secure-page" target="_blank" rel="noopener" class="btn btn--primary btn--large btn--block"><span>I Want to Become a Practitioner<span class="btn__price"> · <span data-webinar="price_formatted">₹199</span></span></span></a>
+        <p class="cta-note cta-note--center">
+          <span class="cta-note__price"><s data-webinar="original_price_formatted">₹999</s> <strong data-webinar="price_formatted">₹199</strong> for both days, plus ₹52,796 in bonuses</span>
+        </p>
       </div>
     </section>
   </main>
 
-  <!-- FOOTER & DISCLAIMERS -->
+  <!-- FOOTER -->
   <footer class="footer">
     <div class="container">
       <div class="footer-meta">
         <div class="footer-brand">
-          <h4>Money EFT Practitioner</h4>
-          <p>Guided by Sonal Wadhwa • Certified Practitioner Training</p>
+          <p class="footer-brand__name">Money EFT Practitioner</p>
+          <p>Guided by Sonal Wadhwa · Certified Practitioner Training</p>
         </div>
-        <div class="footer-links">
-          <a href="#hero">Back to Top</a>
+        <nav class="footer-links" aria-label="Footer">
+          <a href="#hero">Back to top</a>
           <a href="#curriculum">Curriculum</a>
           <a href="#bonuses">Bonuses</a>
           <a href="#faq">FAQ</a>
-        </div>
+        </nav>
       </div>
 
       <div class="footer-disclaimer">
         <p>
-          <strong>Compliance & Earnings Disclaimer:</strong> This site is not a part of the Facebook website or
+          <strong>Compliance &amp; Earnings Disclaimer:</strong> This site is not a part of the Facebook website or
           Facebook Inc. Additionally, this site is NOT endorsed by Facebook in any way. FACEBOOK is a trademark of
           FACEBOOK, Inc.
         </p>
@@ -1125,23 +676,19 @@
       <div class="sticky-bar__info">
         <div class="sticky-bar__price">
           <span class="sticky-price" data-webinar="price_formatted">₹199</span>
-          <span class="sticky-strike" data-webinar="original_price_formatted">₹999</span>
+          <s class="sticky-strike" data-webinar="original_price_formatted">₹999</s>
         </div>
-        <div class="sticky-bar__timer">
-          Ends in: <span class="timer-display sticky-digits" id="sticky-timer">15:00</span>
-        </div>
+        <div class="sticky-bar__timer">Ends in <span class="timer-display sticky-digits" id="sticky-timer">15:00</span></div>
       </div>
-      <a href="https://live.sonalwadhwa.com/payment-secure-page" target="_blank" rel="noopener" class="btn btn--sticky" id="sticky-cta" data-webinar-link>
-        Register Now →
-      </a>
+      <a data-webinar-link href="https://live.sonalwadhwa.com/payment-secure-page" target="_blank" rel="noopener" class="btn btn--primary btn--sticky" id="sticky-cta"><span>Become a Practitioner</span></a>
     </div>
   </div>
 
-  <!-- LIGHTBOX MODAL FOR SCREENSHOTS -->
-  <div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
+  <!-- LIGHTBOX -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Full size image" onclick="closeLightbox(event)">
     <div class="lightbox__content">
-      <button class="lightbox__close" onclick="closeLightbox(event)" aria-label="Close">✕</button>
-      <img src="" alt="Expanded View" id="lightboxImg" />
+      <button type="button" class="lightbox__close" onclick="closeLightbox(event)" aria-label="Close">✕</button>
+      <img alt="Full size student message" id="lightboxImg" />
     </div>
   </div>
 

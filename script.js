@@ -1,12 +1,12 @@
 /**
  * MONEY EFT PRACTITIONER — 2-DAY LIVE WORKSHOP (17–18th October, 12–3 PM)
- * Interactive Scripts: 15-Min Urgency Timer, FAQ Accordion, Proof Carousel, Lightbox & Sticky Bar
+ * Interactive Scripts: 15-Min Urgency Timer, FAQ Accordion, Proof Rail, Lightbox & Sticky Bar
  */
 
 document.addEventListener('DOMContentLoaded', () => {
   initCountdownTimer();
   initFaqAccordion();
-  initProofCarousel();
+  initProofRail();
   initStickyBar();
   initSmoothScroll();
   setCurrentYear();
@@ -127,78 +127,24 @@ function initFaqAccordion() {
 }
 
 /* ==========================================================================
-   3. PROOF CAROUSEL
+   3. PROOF RAIL (swipe on touch, arrow buttons on desktop, tap to enlarge)
    ========================================================================== */
-function initProofCarousel() {
-  const track = document.getElementById('carouselTrack');
-  const prevBtn = document.getElementById('prevSlide');
-  const nextBtn = document.getElementById('nextSlide');
-  const dotsContainer = document.getElementById('carouselDots');
-  if (!track) return;
+function initProofRail() {
+  const rail = document.querySelector('.proof-rail');
+  if (!rail) return;
 
-  const slides = track.querySelectorAll('.proof-slide');
-  const totalSlides = slides.length;
-  let currentIndex = 0;
-  let slidesPerView = window.innerWidth <= 640 ? 1 : 2;
-
-  // Build dots
-  function buildDots() {
-    dotsContainer.innerHTML = '';
-    const numPages = Math.ceil(totalSlides / slidesPerView);
-    for (let i = 0; i < numPages; i++) {
-      const dot = document.createElement('div');
-      dot.classList.add('carousel-dot');
-      if (i === 0) dot.classList.add('active');
-      dot.addEventListener('click', () => {
-        currentIndex = i * slidesPerView;
-        updateCarousel();
-      });
-      dotsContainer.appendChild(dot);
-    }
-  }
-
-  function updateCarousel() {
-    slidesPerView = window.innerWidth <= 640 ? 1 : 2;
-    const maxIndex = Math.max(0, totalSlides - slidesPerView);
-    if (currentIndex > maxIndex) currentIndex = maxIndex;
-    if (currentIndex < 0) currentIndex = 0;
-
-    const slideWidth = slides[0].getBoundingClientRect().width;
-    const gap = 20;
-    const offset = currentIndex * (slideWidth + gap);
-    track.style.transform = `translateX(-${offset}px)`;
-
-    // Update dots
-    const dots = dotsContainer.querySelectorAll('.carousel-dot');
-    const activePageIndex = Math.round(currentIndex / slidesPerView);
-    dots.forEach((d, idx) => {
-      d.classList.toggle('active', idx === activePageIndex);
-    });
-  }
-
-  if (prevBtn) {
-    prevBtn.addEventListener('click', () => {
-      currentIndex = Math.max(0, currentIndex - 1);
-      updateCarousel();
-    });
-  }
-
-  if (nextBtn) {
-    nextBtn.addEventListener('click', () => {
-      const maxIndex = Math.max(0, totalSlides - slidesPerView);
-      currentIndex = Math.min(maxIndex, currentIndex + 1);
-      updateCarousel();
-    });
-  }
-
-  // Handle window resize
-  window.addEventListener('resize', () => {
-    buildDots();
-    updateCarousel();
+  rail.querySelectorAll('.proof-item').forEach((item) => {
+    item.addEventListener('click', () => openLightbox(item.dataset.full));
   });
 
-  buildDots();
-  updateCarousel();
+  document.querySelectorAll('[data-rail-dir]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const dir = Number(btn.dataset.railDir);
+      const first = rail.querySelector('.proof-item');
+      const step = first ? first.getBoundingClientRect().width + 14 : rail.clientWidth * 0.8;
+      rail.scrollBy({ left: dir * step, behavior: 'smooth' });
+    });
+  });
 }
 
 /* ==========================================================================
@@ -246,31 +192,32 @@ window.closeLightbox = closeLightbox;
 function initStickyBar() {
   const stickyBar = document.getElementById('sticky-bar');
   const heroCta = document.getElementById('hero-cta-btn');
-  const pricingSection = document.getElementById('register');
-  if (!stickyBar) return;
+  if (!stickyBar || !heroCta || !('IntersectionObserver' in window)) return;
 
-  function handleScroll() {
-    if (!heroCta) return;
-    const heroRect = heroCta.getBoundingClientRect();
-    const isPastHero = heroRect.bottom < 0;
+  // Bar shows once the hero CTA has scrolled out of view, and hides while the
+  // pricing card or final CTA (which carry their own button) are on screen.
+  const state = { heroVisible: true, heroAbove: false, blockers: new Set() };
+  const blockers = [document.getElementById('register'), document.getElementById('final-cta')].filter(Boolean);
 
-    let isInsidePricing = false;
-    if (pricingSection) {
-      const pricingRect = pricingSection.getBoundingClientRect();
-      // Hide sticky bar if user is currently looking at the main checkout form
-      if (pricingRect.top < window.innerHeight && pricingRect.bottom > 100) {
-        isInsidePricing = true;
-      }
-    }
-
-    if (isPastHero && !isInsidePricing) {
-      stickyBar.classList.add('visible');
-    } else {
-      stickyBar.classList.remove('visible');
-    }
+  function render() {
+    const show = !state.heroVisible && state.heroAbove && state.blockers.size === 0;
+    stickyBar.classList.toggle('visible', show);
   }
 
-  window.addEventListener('scroll', handleScroll, { passive: true });
+  new IntersectionObserver(([entry]) => {
+    state.heroVisible = entry.isIntersecting;
+    state.heroAbove = !entry.isIntersecting && entry.boundingClientRect.top < 0;
+    render();
+  }).observe(heroCta);
+
+  const blockObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) state.blockers.add(entry.target);
+      else state.blockers.delete(entry.target);
+    });
+    render();
+  }, { rootMargin: '0px 0px -25% 0px' });
+  blockers.forEach((el) => blockObserver.observe(el));
 }
 
 /* ==========================================================================
