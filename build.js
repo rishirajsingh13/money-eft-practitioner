@@ -1,5 +1,5 @@
 // Zero-dependency build script for Vercel and local deployments
-// Directly injects .env / Vercel process.env variables into index.html
+// Directly injects .env / Vercel process.env variables into index.html and v2/index.html
 
 const fs = require('fs');
 const path = require('path');
@@ -125,38 +125,43 @@ function runBuild() {
     payment_url: payment_url || undefined
   };
 
-  const htmlPath = path.join(rootDir, 'index.html');
-  let html = fs.readFileSync(htmlPath, 'utf-8');
+  // Pages that carry data-webinar / data-webinar-link hooks (v1 at /, v2 at /v2/)
+  const pages = ['index.html', path.join('v2', 'index.html')];
+  for (const page of pages) {
+    const htmlPath = path.join(rootDir, page);
+    if (!fs.existsSync(htmlPath)) continue;
+    let html = fs.readFileSync(htmlPath, 'utf-8');
 
-  // Replace content inside all elements with data-webinar attributes
-  html = html.replace(/(<[^>]*data-webinar="([^"]+)"[^>]*>)([\s\S]*?)(<\/[^>]+>)/gi, (match, openTag, key, oldContent, closeTag) => {
-    if (config[key] !== undefined) {
-      return `${openTag}${config[key]}${closeTag}`;
+    // Replace content inside all elements with data-webinar attributes
+    html = html.replace(/(<[^>]*data-webinar="([^"]+)"[^>]*>)([\s\S]*?)(<\/[^>]+>)/gi, (match, openTag, key, oldContent, closeTag) => {
+      if (config[key] !== undefined) {
+        return `${openTag}${config[key]}${closeTag}`;
+      }
+      return match;
+    });
+
+    // Update meta & OG descriptions
+    html = html.replace(/(<meta\s+name="description"\s+content=")([^"]*)(")/i, (match, prefix, content, suffix) => {
+      let updated = content;
+      if (config.webinar_date) updated = updated.replace(/\b\d{1,2}[–-]\d{1,2}(?:st|nd|rd|th)?\s+[A-Za-z]+/g, config.webinar_date);
+      if (config.webinar_time) updated = updated.replace(/\b\d{1,2}(?::\d{2})?\s*[–-]\s*\d{1,2}(?::\d{2})?\s*(?:AM|PM)(?:\s*IST)?/gi, config.webinar_time);
+      return `${prefix}${updated}${suffix}`;
+    });
+
+    html = html.replace(/(<meta\s+property="og:description"\s+content=")([^"]*)(")/i, (match, prefix, content, suffix) => {
+      let updated = content;
+      if (config.webinar_date) updated = updated.replace(/\b\d{1,2}[–-]\d{1,2}(?:st|nd|rd|th)?\s+[A-Za-z]+/g, config.webinar_date);
+      if (config.webinar_time) updated = updated.replace(/\b\d{1,2}(?::\d{2})?\s*[–-]\s*\d{1,2}(?::\d{2})?\s*(?:AM|PM)(?:\s*IST)?/gi, config.webinar_time);
+      return `${prefix}${updated}${suffix}`;
+    });
+
+    // Update CTA links if payment_url provided
+    if (config.payment_url) {
+      html = html.replace(/(<a\s+[^>]*data-webinar-link[^>]*\bhref=")[^"]*(")/gi, `$1${config.payment_url}$2`);
     }
-    return match;
-  });
 
-  // Update meta & OG descriptions
-  html = html.replace(/(<meta\s+name="description"\s+content=")([^"]*)(")/i, (match, prefix, content, suffix) => {
-    let updated = content;
-    if (config.webinar_date) updated = updated.replace(/\b\d{1,2}[–-]\d{1,2}(?:st|nd|rd|th)?\s+[A-Za-z]+/g, config.webinar_date);
-    if (config.webinar_time) updated = updated.replace(/\b\d{1,2}(?::\d{2})?\s*[–-]\s*\d{1,2}(?::\d{2})?\s*(?:AM|PM)(?:\s*IST)?/gi, config.webinar_time);
-    return `${prefix}${updated}${suffix}`;
-  });
-
-  html = html.replace(/(<meta\s+property="og:description"\s+content=")([^"]*)(")/i, (match, prefix, content, suffix) => {
-    let updated = content;
-    if (config.webinar_date) updated = updated.replace(/\b\d{1,2}[–-]\d{1,2}(?:st|nd|rd|th)?\s+[A-Za-z]+/g, config.webinar_date);
-    if (config.webinar_time) updated = updated.replace(/\b\d{1,2}(?::\d{2})?\s*[–-]\s*\d{1,2}(?::\d{2})?\s*(?:AM|PM)(?:\s*IST)?/gi, config.webinar_time);
-    return `${prefix}${updated}${suffix}`;
-  });
-
-  // Update CTA links if payment_url provided
-  if (config.payment_url) {
-    html = html.replace(/(<a\s+[^>]*data-webinar-link[^>]*\bhref=")[^"]*(")/gi, `$1${config.payment_url}$2`);
+    fs.writeFileSync(htmlPath, html, 'utf-8');
   }
-
-  fs.writeFileSync(htmlPath, html, 'utf-8');
 
   // Clean up any residual config.js
   const configJsPath = path.join(rootDir, 'config.js');
